@@ -34,9 +34,14 @@ Truffle
 Kinkeby
 Ganache
 
-Send transaction on ether network(testNet) with Web3.js without metamask
+Send transaction on ether network(testNet) with Web3.js without metamask 
+
 Send transaction on ether network(testNet) with Web3.js with metamask
+
 Deploy contract on Ganache and Rinkeby with truffle
+
 Send ERC20 token with Web3.js
+
 Check Smart Contract information with Web3
+
 Mocha test on truffle with Web3
