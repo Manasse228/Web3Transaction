@@ -50,10 +50,24 @@ export class AppComponent implements OnInit {
             if (balanceByAddress) { console.log('balanceByAddress  ', this.balanceByAddress); }
 
         });
+
+        this.getAddressTokenBalanceFromContract('0xfd04cc1c2e6ec59b0507b0cc096650cf5d85d8fa');
     }
 
-    getAddressTokenBalanceFromContract() {
-      return null;
+    getAddressTokenBalanceFromContract(add) {
+        const tknAddress = (add).substring(2);
+        const contractData = ('0x70a08231000000000000000000000000' + tknAddress);
+        const contractAddr = (smartContractAddress);
+        this.ethcontractService.web3.eth.call({
+            to: contractAddr,
+            data: contractData
+            },
+            (error, result) => {
+                const getTokenBalance = this.ethcontractService.web3.utils.fromWei(
+                    this.ethcontractService.web3.utils.hexToNumberString(result), 'ether');
+
+                console.log('Token blance of ', add , ' is ', getTokenBalance );
+        });
     }
 
     transferEther(e) {
