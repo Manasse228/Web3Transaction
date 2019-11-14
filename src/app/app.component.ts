@@ -1,5 +1,10 @@
 import { Component, OnInit  } from '@angular/core';
 import {EthcontractService, tokenAbi, smartContractAddress} from './service/ethcontract.service';
+import {MultiSigWalletAbi, MultiSigWalletAddress, liberiDecimals} from './service/token';
+import Web3 from "web3";
+
+import {el} from "@angular/platform-browser/testing/src/browser_util";
+
 
 @Component({
   selector: 'app-root',
@@ -7,9 +12,10 @@ import {EthcontractService, tokenAbi, smartContractAddress} from './service/ethc
   styleUrls: ['./app.component.css']
 })
 
+
 export class AppComponent implements OnInit {
   title = 'Ebank';
-  addr = 'add';
+
   balance = '59.90 Ether';
   transferTo = '';
   amount = 0;
@@ -20,11 +26,17 @@ export class AppComponent implements OnInit {
   tokenSymbol = '';
   balanceByAddress = '';
 
+  addr = '0X..........';
+  contract = null;
+  contractBalance = 0;
+
   constructor(private ethcontractService: EthcontractService) {}
+
 
     smartContratInstance() {
 
         const contract = new this.ethcontractService.web3.eth.Contract(tokenAbi.abi, smartContractAddress);
+
         contract.methods.totalSupply().call().then( (supply) => {
             this.tokenSupply = this.ethcontractService.web3.utils.fromWei(
                 this.ethcontractService.web3.utils.hexToNumberString(supply), 'ether');
@@ -81,25 +93,93 @@ export class AppComponent implements OnInit {
     this.smartContratInstance();
   }
 
-  ngOnInit() {
+  public async confirmTransaction(trxID: string) {
+      this.contract.methods.confirmTransaction(trxID)
+        .send({from: this.addr})
+        .on('transactionHash', (hash) => {
+          console.log('TRANSACTION_HASH ', hash);
+        })
+        .on('confirmation', result => {
+          if (result === 6) {
+            console.log("Transaction valid ", result)
+          }
+        })
+  }
 
-    this.ethcontractService.web3.eth.net.getNetworkType().then( network => this.network = network);
-    this.ethcontractService.currentAllAccount().then(
-        (result) => {
-            // console.log('result result hey ', this.ethcontractService.web3.eth.accounts.givenProvider);
-            if (result.length > 0 ) {
-                this.addr = result[0];
-                this.ethcontractService.getBalanceByAdresse(this.addr).then(
-                    (resultB) => {
-                        this.balance = this.ethcontractService.web3.utils.fromWei(resultB, 'ether') + ' Ether';
-                    }
-                );
-            } else {
-                // this.addr = this.ethcontractService.web3.eth.givenProvider.selectedAddress;
-            }
-        }
-    );
+  public async addUnbankOwner(NewAdminOwner: string) {
+    if (this.ethcontractService.web3.utils.isAddress(NewAdminOwner)) {
+      this.contract.methods.addUnbankOwner(NewAdminOwner)
+        .send({from: this.addr})
+        .on('transactionHash', (hash) => {
+          console.log('TRANSACTION_HASH ', hash);
+        })
+        .on('confirmation', result => {
+          if (result === 6) {
+            console.log("Transaction valid ", result)
+          }
+      })
+    }
+  }
 
+  public async validNewUnbankOwner(NewAdminOwner: string) {
+    if (this.ethcontractService.web3.utils.isAddress(NewAdminOwner)) {
+      this.contract.methods.validNewUnbankOwner(NewAdminOwner)
+        .send({from: this.addr})
+        .on('transactionHash', (hash) => {
+          console.log('TRANSACTION_HASH ', hash);
+        })
+        .on('confirmation', result => {
+          if (result === 6) {
+            console.log("Transaction valid ", result)
+          }
+        })
+    }
+  }
+
+  async ngOnInit() {
+
+
+    await window['ethereum'].enable();
+    const web3 = new Web3(window['ethereum']);
+    const myWeb3 = new Web3(web3.currentProvider);
+
+    this.contract = new myWeb3.eth.Contract(MultiSigWalletAbi, MultiSigWalletAddress);
+
+    if (!window['ethereum'] || !window['ethereum'].isMetaMask) {
+      console.log('Please install MetaMask.')
+    } else {
+      console.log('You have installed METAMASk ', window['ethereum'].networkVersion)
+    }
+
+    console.log('Network Version ', this.ethcontractService.getNetworkVersion(window['ethereum'].networkVersion));
+
+    this.addr = await window['ethereum'].selectedAddress;
+    console.log('Selected Address ', this.addr);
+
+    await window['ethereum'].on('accountsChanged',  (accounts) => {
+      // Time to reload your interface with accounts[0]!
+      this.addr =  accounts[0];
+      console.log('changed ', accounts[0]);
+    });
+
+    await this.contract.methods.getDestinationAddress().call().then( (getDestinationAddress) => {
+      console.log('getDestinationAddress ', getDestinationAddress)
+    });
+
+    await this.contract.methods.getMultiSigBalance().call().then( (getMultiSigBalance) => {
+      this.contractBalance = (getMultiSigBalance / (10**8));
+    });
+
+    await this.contract.methods.getTransactionDetails('1234').call({ from: this.addr }).then( (details) => {
+      console.log('getTransactionDetails ', details);
+
+      console.log('_destination ', details._destination);
+      console.log('_amount ', details._amount / (10**liberiDecimals));
+      console.log('_maxSignature ', details._maxSignature  );
+      console.log('_minSignatures ', details._minSignatures  );
+      console.log('_countSignature ', details._countSignature );
+      console.log('_executed ', details._executed);
+    });
 
 
   }

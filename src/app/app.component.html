@@ -6,7 +6,7 @@
 </div>
 <form>
   <div class="container">
-    <div class="tab"><b> Address</b>{{addr}} <span class="tab-right"><b>Balance</b>{{balance}}</span></div>
+    <div class="tab"><b> Address</b>{{addr}} <span class="tab-right"><b>Contract Balance</b>{{contractBalance}}</span></div>
     <hr>
 
     <label for="transfer"><b>Tranfer To</b></label>
@@ -19,7 +19,10 @@
     <textarea  class="inputfield" placeholder="Enter Remarks" name="remarks" required   [(ngModel)]="remarks" ></textarea>
     <hr>
     <button type="reset" class="trfbtn resetbtn">Reset</button>&nbsp;&nbsp;
-    <button type="submit" class="trfbtn" (click)="transferEther($event)">Transfer Ether</button>&nbsp;&nbsp;
+    <button type="submit" class="trfbtn" (click)="transferEther($event)">Transfer Ether</button>&nbsp;&nbsp;&nbsp;&nbsp;
+    <button type="submit" class="trfbtn" (click)="addUnbankOwner('0xF4Cb98E14C264d1E9E3E8E9F9eD531d238814d68')">Add New Owner</button>
+    <button type="submit" class="trfbtn" (click)="validNewUnbankOwner('0xF4Cb98E14C264d1E9E3E8E9F9eD531d238814d68')">Valid New Owner</button>
+    <button type="submit" class="trfbtn" (click)="confirmTransaction('1234')">Sign Transaction</button>
   </div>
 
 </form>

@@ -1,40 +1,61 @@
 {
-  "contractName": "Owned",
+  "contractName": "ERC20Basic",
   "abi": [
-    {
-      "inputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "constructor"
-    },
     {
       "anonymous": false,
       "inputs": [
         {
           "indexed": true,
           "internalType": "address",
-          "name": "previousOwner",
+          "name": "from",
           "type": "address"
         },
         {
           "indexed": true,
           "internalType": "address",
-          "name": "newOwner",
+          "name": "to",
           "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "value",
+          "type": "uint256"
         }
       ],
-      "name": "OwnershipTransferred",
+      "name": "Transfer",
       "type": "event"
     },
     {
       "constant": true,
       "inputs": [],
-      "name": "owner",
+      "name": "totalSupply",
       "outputs": [
         {
-          "internalType": "address",
+          "internalType": "uint256",
           "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "who",
           "type": "address"
+        }
+      ],
+      "name": "balanceOf",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
         }
       ],
       "payable": false,
@@ -46,22 +67,33 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "newOwner",
+          "name": "to",
           "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "value",
+          "type": "uint256"
         }
       ],
-      "name": "transferOwnership",
-      "outputs": [],
+      "name": "transfer",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.5.12+commit.7709ece9\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{\"transferOwnership(address)\":{\"details\":\"Allows the current owner to transfer control of the contract to a newOwner.\",\"params\":{\"newOwner\":\"The address to transfer ownership to.\"}}}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/home/manasse/Documents/Web3Transaction/contracts/WtxHubAirdrop.sol\":\"Owned\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"/home/manasse/Documents/Web3Transaction/contracts/WtxHubAirdrop.sol\":{\"keccak256\":\"0x785cd4dbf499381e4bec8982b99778e77c7add9d73128a0bbf8326829f07893f\",\"urls\":[\"bzz-raw://2bf2e76d5d5aac1578307d9f992954a83f0a0c72fb8fd88d8190828513387e3c\",\"dweb:/ipfs/QmThSPm3b3m41mgVrc6SBK78knoGoWzACX4fpBbGTKWmYD\"]}},\"version\":1}",
-  "bytecode": "0x608060405234801561001057600080fd5b50600080546001600160a01b03191633179055610143806100326000396000f3fe608060405234801561001057600080fd5b50600436106100365760003560e01c80638da5cb5b1461003b578063f2fde38b1461005f575b600080fd5b610043610087565b604080516001600160a01b039092168252519081900360200190f35b6100856004803603602081101561007557600080fd5b50356001600160a01b0316610096565b005b6000546001600160a01b031681565b6000546001600160a01b031633146100ad57600080fd5b6001600160a01b0381166100c057600080fd5b600080546001600160a01b0319166001600160a01b0383811691821780845560405192939116917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35056fea265627a7a72315820945aaecab64afafa7aeee8188176f64c4389dc1433174f309318ef985ef52c3c64736f6c634300050c0032",
-  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100365760003560e01c80638da5cb5b1461003b578063f2fde38b1461005f575b600080fd5b610043610087565b604080516001600160a01b039092168252519081900360200190f35b6100856004803603602081101561007557600080fd5b50356001600160a01b0316610096565b005b6000546001600160a01b031681565b6000546001600160a01b031633146100ad57600080fd5b6001600160a01b0381166100c057600080fd5b600080546001600160a01b0319166001600160a01b0383811691821780845560405192939116917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35056fea265627a7a72315820945aaecab64afafa7aeee8188176f64c4389dc1433174f309318ef985ef52c3c64736f6c634300050c0032",
-  "sourceMap": "1763:644:3:-;;;1905:56;8:9:-1;5:2;;;30:1;27;20:12;5:2;-1:-1;1936:5:3;:18;;-1:-1:-1;;;;;;1936:18:3;1944:10;1936:18;;;1763:644;;;;;;",
-  "deployedSourceMap": "1763:644:3:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1763:644:3;;;;;;;;;;;;;;;;;;;;;;;;1784:20;;;:::i;:::-;;;;-1:-1:-1;;;;;1784:20:3;;;;;;;;;;;;;;2217:188;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;-1:-1;2217:188:3;-1:-1:-1;;;;;2217:188:3;;:::i;:::-;;1784:20;;;-1:-1:-1;;;;;1784:20:3;;:::o;2217:188::-;2018:5;;-1:-1:-1;;;;;2018:5:3;2004:10;:19;1996:28;;;;;;-1:-1:-1;;;;;2297:22:3;;2289:31;;;;;;2330:5;:16;;-1:-1:-1;;;;;;2330:16:3;-1:-1:-1;;;;;2330:16:3;;;;;;;;;2361:37;;2330:16;;2382:5;;;2361:37;;2330:5;2361:37;2217:188;:::o",
+  "metadata": "{\"compiler\":{\"version\":\"0.5.12+commit.7709ece9\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Transfer\",\"type\":\"event\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"who\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"totalSupply\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"transfer\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"details\":\"Simpler version of ERC20 interfacesee https://github.com/ethereum/EIPs/issues/179\",\"methods\":{},\"title\":\"ERC20Basic\"},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/home/manasse/Documents/Web3Transaction/contracts/WtxHubAirdrop.sol\":\"ERC20Basic\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"/home/manasse/Documents/Web3Transaction/contracts/WtxHubAirdrop.sol\":{\"keccak256\":\"0x785cd4dbf499381e4bec8982b99778e77c7add9d73128a0bbf8326829f07893f\",\"urls\":[\"bzz-raw://2bf2e76d5d5aac1578307d9f992954a83f0a0c72fb8fd88d8190828513387e3c\",\"dweb:/ipfs/QmThSPm3b3m41mgVrc6SBK78knoGoWzACX4fpBbGTKWmYD\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "sourceMap": "",
+  "deployedSourceMap": "",
   "source": "pragma solidity ^0.5.0;\n\n/**\n * @title ERC20Basic\n * @dev Simpler version of ERC20 interface\n * @dev see https://github.com/ethereum/EIPs/issues/179\n */\ncontract ERC20Basic {\n    function totalSupply() public view returns (uint256);\n    function balanceOf(address who) public view returns (uint256);\n    function transfer(address to, uint256 value) public returns (bool);\n    event Transfer(address indexed from, address indexed to, uint256 value);\n}\n\n\n/**\n * @title ERC20 interface\n * @dev see https://github.com/ethereum/EIPs/issues/20\n */\ncontract ERC20 is ERC20Basic {\n    function allowance(address owner, address spender) public view returns (uint256);\n    function transferFrom(address from, address to, uint256 value) public returns (bool);\n    function approve(address spender, uint256 value) public returns (bool);\n    event Approval(address indexed owner, address indexed spender, uint256 value);\n}\n\n// ----------------------------------------------------------------------------\n// Safe maths\n// ----------------------------------------------------------------------------\nlibrary SafeMath {\n    function add(uint a, uint b) internal pure returns (uint c) {\n        c = a + b;\n        require(c >= a);\n    }\n    function sub(uint a, uint b) internal pure returns (uint c) {\n        require(b <= a);\n        c = a - b;\n    }\n    function mul(uint a, uint b) internal pure returns (uint c) {\n        c = a * b;\n        require(a == 0 || c / a == b);\n    }\n    function div(uint a, uint b) internal pure returns (uint c) {\n        require(b > 0);\n        c = a / b;\n    }\n}\n\n\n// ----------------------------------------------------------------------------\n// Owned contract\n// ----------------------------------------------------------------------------\ncontract Owned {\n    address public owner;\n    \n    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);\n\n    constructor() public {\n        owner = msg.sender;\n    }\n\n    modifier onlyOwner {\n        require(msg.sender == owner);\n        _;\n    }\n    \n    /**\n     * @dev Allows the current owner to transfer control of the contract to a newOwner.\n     * @param newOwner The address to transfer ownership to.\n     */\n    function transferOwnership(address newOwner) public onlyOwner {\n        require(newOwner != address(0));\n        owner = newOwner;\n        emit OwnershipTransferred(owner, newOwner);\n    }\n}\n\n\n\ncontract WtxHubAirdrop is Owned {\n    using SafeMath for uint256;\n    \n    // The token being sold\n    ERC20 public token;\n    mapping(address => bool) public addressAllow;\n    mapping(uint256 => bool) private checking;\n    bool public withdrawStatus = false;\n    \n    constructor(ERC20 _token) public {\n        token = _token;\n    }\n    \n    event withdrawEvent(address indexed _beneficiary, uint256 indexed _amount);\n    event statusEvent(bool _status);\n    \n    /**\n     * @dev Deliver tokens to receiver_ after crowdsale ends.\n     */\n    function withdrawTokensFor(address _from, uint256 _tokenAmount, uint256 check) public returns(bool) {\n        require(!withdrawStatus);\n        require(checking[check]);\n        require(_from != address(0) && msg.sender != address(0));\n        require(_tokenAmount > 0);\n        require(!addressAllow[msg.sender]);\n        _deliverTokens(_from, msg.sender, _tokenAmount);\n    }\n    \n    function _deliverTokens(address _from, address _beneficiary, uint256 _tokenAmount) private returns(bool send) {\n        require(msg.sender == address(this));\n        addressAllow[_beneficiary] = true;\n        token.transferFrom(_from, _beneficiary, _tokenAmount);\n        emit withdrawEvent(_beneficiary, _tokenAmount);\n        return send;\n    }\n    \n    function setWithdrawStatus(bool status) public onlyOwner returns(bool _status){\n        withdrawStatus = status;\n        emit statusEvent(status);\n        return _status;\n    }\n    \n    function addCheckNumber(uint256 num) public onlyOwner {\n        checking[num] = true;\n    }\n    \n    \n}",
   "sourcePath": "/home/manasse/Documents/Web3Transaction/contracts/WtxHubAirdrop.sol",
   "ast": {
@@ -10170,25 +10202,13 @@
     "name": "solc",
     "version": "0.5.12+commit.7709ece9.Emscripten.clang"
   },
-  "networks": {
-    "4": {
-      "events": {},
-      "links": {},
-      "address": "0xAcc058d121F0e7c750fa10b6569315D8C10f9C4F",
-      "transactionHash": "0x0b6637ba22291dcef2c791548898e974efa95bd1b21e341f7e692d567e43a733"
-    }
-  },
+  "networks": {},
   "schemaVersion": "3.0.18",
-  "updatedAt": "2019-11-13T14:16:25.716Z",
+  "updatedAt": "2019-11-13T14:16:25.732Z",
   "devdoc": {
-    "methods": {
-      "transferOwnership(address)": {
-        "details": "Allows the current owner to transfer control of the contract to a newOwner.",
-        "params": {
-          "newOwner": "The address to transfer ownership to."
-        }
-      }
-    }
+    "details": "Simpler version of ERC20 interfacesee https://github.com/ethereum/EIPs/issues/179",
+    "methods": {},
+    "title": "ERC20Basic"
   },
   "userdoc": {
     "methods": {}

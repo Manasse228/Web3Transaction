@@ -1,11 +1,16 @@
 import { Injectable, OnInit, Inject } from '@angular/core';
-import { WEB3, addressFrom, privateKey, addressTo  } from './token';
+import {
+  WEB3, addressFrom, privateKey, addressTo,
+  AdminAcount, AdminAcount_privateKey, MultiSigWalletAbi,
+} from './token';
 import Web3 from 'web3';
+
 
 const Tx = require('ethereumjs-tx');
 
 export const tokenAbi = require('../../../build/contracts/Ebank.json');
 export const smartContractAddress = '0xB812C0A913A5c0E9110E8d99924e5823C1609897';
+
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +19,28 @@ export class EthcontractService implements OnInit {
   constructor(@Inject(WEB3) public web3: Web3) {}
 
   async ngOnInit() {
-    this.web3.eth.defaultAccount = '0x2F7F14890118f3908732DD3A71bEd7DB886CbA4b';
+    //this.web3.eth.defaultAccount = '0x2F7F14890118f3908732DD3A71bEd7DB886CbA4b';
+  }
+
+  public getNetworkVersion(networkID: any)  {
+    if (networkID == 1) {
+      return 'Ethereum Main Network';
+    }
+    if (networkID == 2) {
+      return 'Morden Test network';
+    }
+    if (networkID == 3) {
+      return 'Ropsten Test Network';
+    }
+    if (networkID == 4) {
+      return 'Rinkeby Test Network';
+    }
+    if (networkID == 5) {
+      return 'Goerli Test Network';
+    }
+    if (networkID == 42) {
+      return 'Kovan Test Network';
+    }
   }
 
   public currentAllAccount() {
@@ -87,5 +113,7 @@ export class EthcontractService implements OnInit {
       privateKey: genAddr.privateKey
     };
   }
+
+
 
 }
